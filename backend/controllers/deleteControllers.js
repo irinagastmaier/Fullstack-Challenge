@@ -1,7 +1,9 @@
-const db = require("../model/db");
 
+const db = require("../model/db");
 exports.deleteSingleReport = (req, res) => {
-  let idParam = parseInt(req.params.id);
+  let idParam = req.params;
+  console.log(idParam);
   db.get("elements").remove({ id: idParam }).write();
-  res.json({ success: true, message: "report deleted" });
+  let reports = db.get("elements").sortBy("id").value();
+  res.json({ success: true, message: "report deleted", reports: reports });
 };

@@ -2,50 +2,41 @@ import React, { useEffect, useState } from "react";
 
 export default function Reports() {
   const [reports, setReports] = useState([]);
-
   useEffect(() => {
     fetch("http://localhost:3001/api/reports", {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     })
-      .then(res => res.json())
-      .then(result => {
+      .then((res) => res.json())
+      .then((result) => {
         setReports(result.reports);
         console.log(result.reports);
       })
-      .catch(err => console.log(err)); // this error is from the server
+      .catch((err) => console.log(err)); // this error is from the server
   }, []);
-
-  const handleUpdate = id => {
+  const handleResolve = (id) => {
     fetch(`http://localhost:3001/api/reports/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
     })
-      .then(res => res.json())
-      .then(result => {
-        if (result) {
-          let updatedReports = reports.filter(
-            report => report.id !== result.deleteSingleReport.id
-          );
-          setReports(updatedReports);
+      .then((res) => res.json())
+      .then((result) => {
+        if (result.success) {
+          setReports(result.reports);
         } else {
           console.log(result);
         }
       });
   };
-
   const handleBlock = (id) => {
     fetch(`http://localhost:3001/api/reports/${id}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
     })
-      .then(res => res.json())
-      .then(result => {
-        if (result) {
-          let updatedReports = reports.filter(
-            report => report.id !== result.deleteSingleReport.id
-          );
-          setReports(updatedReports);
+      .then((res) => res.json())
+      .then((result) => {
+        if (result.success) {
+          setReports(result.reports);
         } else {
           console.log(result);
         }
@@ -61,7 +52,7 @@ export default function Reports() {
           justifyContent: "center",
         }}
       >
-        {reports.map(report => {
+        {reports.map((report) => {
           return (
             <div
               key={report.id}
@@ -91,7 +82,7 @@ export default function Reports() {
               </div>
               <div>
                 <button
-                  onClick={handleBlock}
+                  onClick={() => handleBlock(report.id)}
                   style={{
                     padding: "0.2rem",
                     textAlign: "center",
@@ -101,7 +92,7 @@ export default function Reports() {
                   Block
                 </button>
                 <button
-                  onClick={handleUpdate}
+                  onClick={() => handleResolve(report.id)}
                   style={{
                     padding: "0.2rem",
                     textAlign: "center",
