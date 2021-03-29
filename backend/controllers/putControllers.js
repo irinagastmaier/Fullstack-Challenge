@@ -1,7 +1,7 @@
 const db = require("../model/db");
 exports.putUpdateReport = (req, res) => {
   console.log(req.params);
-  let idParam = req.params.id;
+  let idParam = req.params.reportId;
   console.log(idParam);
   db.get("elements")
     .find({ id: idParam })
