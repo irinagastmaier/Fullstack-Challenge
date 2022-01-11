@@ -1,6 +1,6 @@
 # Fullstack-Challenge
 
-Change the status of the SPAM report and block it from the main page.
+Change the state of the SPAM report and block it from the main page.
 
 ## Installation
 

@@ -2,25 +2,26 @@ import React, { useEffect, useState } from "react";
 
 export default function Reports() {
   const [reports, setReports] = useState([]);
+
   useEffect(() => {
     fetch("http://localhost:3001/api/reports", {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     })
-      .then((res) => res.json())
-      .then((result) => {
+      .then(res => res.json())
+      .then(result => {
         setReports(result.reports);
-        console.log(result.reports);
       })
-      .catch((err) => console.log(err)); // this error is from the server
+      .catch(err => console.log(err));
   }, []);
-  const handleResolve = (id) => {
+
+  const handleResolve = id => {
     fetch(`http://localhost:3001/api/reports/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
     })
-      .then((res) => res.json())
-      .then((result) => {
+      .then(res => res.json())
+      .then(result => {
         if (result.success) {
           setReports(result.reports);
         } else {
@@ -28,13 +29,14 @@ export default function Reports() {
         }
       });
   };
-  const handleBlock = (id) => {
+
+  const handleBlock = id => {
     fetch(`http://localhost:3001/api/reports/${id}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
     })
-      .then((res) => res.json())
-      .then((result) => {
+      .then(res => res.json())
+      .then(result => {
         if (result.success) {
           setReports(result.reports);
         } else {
@@ -42,6 +44,7 @@ export default function Reports() {
         }
       });
   };
+
   return (
     <div>
       <h1>Reports</h1>
@@ -52,7 +55,7 @@ export default function Reports() {
           justifyContent: "center",
         }}
       >
-        {reports.map((report) => {
+        {reports.map(report => {
           return (
             <div
               key={report.id}

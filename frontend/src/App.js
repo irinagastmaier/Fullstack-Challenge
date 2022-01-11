@@ -1,21 +1,19 @@
-import React from "react"
-import {HashRouter, Link, Route, Switch} from "react-router-dom"
+import React from "react";
+import { HashRouter, Route, Routes } from "react-router-dom";
 import NotFound from "./components/NotFound";
 import Reports from "./components/Reports";
 
 function App() {
   return (
     <>
-    <HashRouter>
-    <div className="App">
-      <Switch>
-        <Route exact path='/'>
-        <Reports />
-        </Route>
-        <Route component={NotFound} />
-      </Switch>
-    </div>
-    </HashRouter>
+      <HashRouter>
+        <div className='App'>
+          <Routes>
+            <Route exact path='/' element={<Reports />} />
+            <Route path='*' element={<NotFound />} />
+          </Routes>
+        </div>
+      </HashRouter>
     </>
   );
 }
